@@ -3,16 +3,14 @@
 
 
 
-
-
-
 int main(int argc, char* argv[]){
-    error err;
+    error::error err;
+
     App app(argc, argv);
-    err = app.startup();
+    err = app.bootstrap();
     if (err) {
         return err.code();
     }
 
-    return 0;
+    return err;
 }

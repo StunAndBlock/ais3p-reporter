@@ -5,6 +5,14 @@ project(ais3p-reporter LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
+
+find_package(X11 REQUIRED)
+
+
 # Рекурсивно собираем все исходники из src/
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     src/*.cpp
@@ -19,6 +27,11 @@ target_include_directories(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/include       # свои заголовки
 )
 
+
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        ${X11_LIBRARIES}    
+)
 
 
 ##set_target_properties(${PROJECT_NAME} PROPERTIES

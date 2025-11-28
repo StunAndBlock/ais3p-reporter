@@ -7,8 +7,8 @@ class Config {
         enum Status : int8_t { UNKNOWN_CONFIGURATION = -22, EMPTY_VALUE = -23};
         Config();
         ~Config();
-        error setValue(const std::string&, const std::string& );
-        std::pair<error, std::string> getValue(const std::string&);
+        error::error setValue(const std::string&, const std::string& );
+        std::pair<error::error, std::string*> getValue(const std::string&);
         std::unordered_map<std::string,std::string*>& getVault();
     private: 
         std::unordered_map<std::string,std::string*> valuesVault_;

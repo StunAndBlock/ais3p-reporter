@@ -2,30 +2,38 @@
 #define ERROR_HPP_
 
 #include <cstdint>
-
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
+#include <string>
 class Error {
     public:
         Error(const char*);
-        Error(int8_t);
-        Error(int8_t, const char*);
+        Error(int);
+        Error(int, const char*);
         Error();
         ~Error() = default;
         bool operator!() const;
         operator bool() const;
-        bool operator==(int8_t) const;
-        bool operator!=(int8_t) const;
+        bool operator==(int) const;
+        bool operator!=(int) const;
         const char* msg() const;
-        const int8_t code() const;
-        static constexpr struct {
-            operator Error() const { return Error(); }
-        } null{};        
+        const int code() const;     
     private:
-        const char* msg_;
-        int8_t code_; 
+        char* msg_;
+        int code_; 
 };
 
-typedef Error error;
 
+namespace error {
+    typedef Error error;
+    static constexpr struct {
+        operator Error() const { return Error(); }
+    }null{};   
+    error errorf(const char*, ...);
+    error errorf(int, const char*, ...);
+
+}
 
 
 #endif //!ERROR_HPP_
