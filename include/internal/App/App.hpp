@@ -11,7 +11,7 @@ class App {
         App(int, char*[]);
         ~App() = default;
     private:
-        Logger log_;
+        logger::Logger log_;
         ConfigManager cm_;
         UI ui_;
     protected:

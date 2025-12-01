@@ -5,7 +5,7 @@
 #include <string>
 
 namespace utils {
-    std::string prettyf(const char* format, ...);
+    std::string sformat(const char* format, ...);
 }
 
 

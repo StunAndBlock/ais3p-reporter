@@ -13,7 +13,9 @@ UI::~UI(){
             delete iPair.second;
         }
     }
-    XCloseDisplay(display_);
+    if (display_){
+        XCloseDisplay(display_);
+    }
 }
 
 void UI::triggerFirstStart(){

@@ -2,7 +2,7 @@
 #include "internal/Utils/Utils.hpp"
 
 namespace utils {
-        std::string prettyf(const char* format, ...){
+        std::string sformat(const char* format, ...){
             va_list args;
             va_start(args, format);
 

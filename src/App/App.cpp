@@ -1,7 +1,7 @@
 #include "internal/App/App.hpp"
 #include <iostream>
 
-App::App(int argc, char* argv[]){
+App::App(int argc, char* argv[]) : log_("App",logger::Core::LOGGER_LEVEL::PRODUCTION){
 
 
 }
@@ -10,35 +10,45 @@ App::App(int argc, char* argv[]){
 error::error App::bootstrap(){
     error::error err;
     log_.info("Bootstraping started");
-    err = cm_.init();
-    if (err) {
-        if (err == ConfigIO::STATUS::NO_CFG_FILE){
-            log_.info("First start triggered");
-            err = this->firstStart("config.cfg");
-            if (err) {
-                return err;                
-            } 
-            err = cm_.init(); 
-            if (err) {
-                return err;                
-            } 
-            ui_.triggerFirstStart();
-        } else {
-            return err;
-        }
-    }
+    log_.debug().info("Bootstraping started");
+    logger::LoggerChild l1 = log_.named("new name");
+    l1.info("hi");
+    logger::LoggerChild l2 = l1.named("test_test");
+    l2.info("l2 info");
+    l2.debug().info("l2 info");
+    // logger::Logger* ln = log_.named("New tested");
+    // ln->debug()->info("Creation of new logger");
+    // delete ln;
+    // log_.~Logger();
+    // log_ = logger::Logger("App", logger::Core::LOGGER_LEVEL::PRODUCTION);
+    // log_.named("UI FOR UI")->debug()->info("NO DEBUG ? :(");
+    // err = cm_.init();
+    // if (err) {
+    //     if (err == ConfigIO::STATUS::NO_CFG_FILE){
+    //         log_.info("First start triggered");
+    //         err = this->firstStart("config.cfg");
+    //         if (err) {
+    //             return err;                
+    //         } 
+    //         err = cm_.init(); 
+    //         if (err) {
+    //             return err;                
+    //         } 
+    //         ui_.triggerFirstStart();
+    //     } else {
+    //         return err;
+    //     }
+    // }
   
-    err = cm_.start();
-    if (err) {
-        return err;
-    }
-    auto res = cm_.loadValue("applevel");
-    log_.setLevel(*res.second);
-    err = ui_.init();
-    if (err) {
-        return err;
-    }
-    err = ui_.dispatch();
+    // err = cm_.start();
+    // if (err) {
+    //     return err;
+    // }
+    // err = ui_.init();
+    // if (err) {
+    //     return err;
+    // }
+    // err = ui_.dispatch();
     return err;
 }
 
