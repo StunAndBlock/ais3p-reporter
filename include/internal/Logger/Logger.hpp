@@ -17,6 +17,7 @@ namespace logger {
             Logger(const std::string&, Core::LOGGER_LEVEL);
             Logger(const std::string&);
             ~Logger();
+            Logger& operator=(const Logger& );
         // void setLevel(const std::string &);
             // LoggerInterface* debug();
             // LoggerChild* named(const std::string&);

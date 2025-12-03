@@ -1,11 +1,18 @@
 #include "internal/App/App.hpp"
 #include <iostream>
 
-App::App(int argc, char* argv[]) : log_("App",logger::Core::LOGGER_LEVEL::PRODUCTION){
-
-
+App::App(int argc, char* argv[]) : log_("App", logger::Core::LOGGER_LEVEL::PRODUCTION){
+    std::unordered_map<std::string, logger::Core::LOGGER_LEVEL> opts = {
+        {"--dev", logger::Core::LOGGER_LEVEL::DEVELOPMENT},
+        {"--debug", logger::Core::LOGGER_LEVEL::DEBUG},
+    };
+    
+    if (argc > 1){
+        if (const auto& it = opts.find(argv[1]); it!= opts.end()){
+            log_ = logger::Logger("App",it->second);
+        }
+    } 
 }
-
 
 error::error App::bootstrap(){
     error::error err;

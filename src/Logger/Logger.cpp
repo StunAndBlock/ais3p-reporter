@@ -19,7 +19,11 @@ namespace logger
         delete core_;
     }
 
-
+    Logger& Logger::operator=(const Logger& other) {
+        Logger temp(other);
+        std::swap(*this, temp); 
+        return *this;        
+    }
 
 
 
