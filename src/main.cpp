@@ -11,6 +11,6 @@ int main(int argc, char* argv[]){
     if (err) {
         return err.code();
     }
-
+    err = app.run();
     return err;
 }

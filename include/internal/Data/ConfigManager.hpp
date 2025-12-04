@@ -12,6 +12,7 @@ class ConfigManager {
         ~ConfigManager() = default;
         error::error init();
         error::error start();
+        error::error firstStart();
         error::error exit();
         error::error saveValue(const std::string&, const std::string&);
         std::pair<error::error, std::string*> loadValue(const std::string&);

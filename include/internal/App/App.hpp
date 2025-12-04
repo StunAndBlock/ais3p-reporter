@@ -6,10 +6,10 @@
 #include "internal/Logger/Logger.hpp"
 class App {
     public:
-        error::error bootstrap();
-        error::error firstStart(std::filesystem::path);
         App(int, char*[]);
         ~App() = default;
+        error::error bootstrap();
+        error::error run();
     private:
         logger::Logger log_;
         ConfigManager cm_;

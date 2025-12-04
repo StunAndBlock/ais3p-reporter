@@ -20,7 +20,12 @@ error::error ConfigManager::start(){
     return err;
 }
 
+error::error ConfigManager::firstStart(){
+    error::error err;
 
+    err = cIO_.firstStart();
+    return err;
+}
 
 error::error ConfigManager::exit(){
     error::error err;

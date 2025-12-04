@@ -25,6 +25,15 @@ error::error ConfigIO::open(){
     return error::null;
 }
 
+
+error::error ConfigIO::firstStart(){
+    fd_.open(fn_, std::ios::out);
+    if (!fd_.is_open()){
+
+    }
+    return error::null;
+}
+
 error::error ConfigIO::close(){
     if (!fd_.is_open()){
         return error::error("[IO] Failed to properly close cfg file, reason: decriptor lost file context");

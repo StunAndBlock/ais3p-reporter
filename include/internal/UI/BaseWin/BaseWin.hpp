@@ -6,13 +6,13 @@
 #include <X11/Xos.h>
 #include  "internal/Error/Error.hpp"
 #include <iostream>
+#include <X11/Xft/Xft.h>
 class BaseWin {
     public:
-        BaseWin() = default;
+        BaseWin(Display*, int);
         ~BaseWin();
-        virtual void callback(XEvent&);
-        virtual error::error create(const char*);
-        virtual void init(Display*, int);
+        virtual int callback(XEvent&) = 0;
+        virtual error::error create(const char*, Window);
         Window getWindow();
         virtual void show();
         virtual void hide();

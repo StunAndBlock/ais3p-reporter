@@ -12,6 +12,7 @@ class ConfigIO {
         ~ConfigIO();
         error::error open();
         error::error close();
+        error::error firstStart();
        //error writeValue(const std::string&, const std::string&);
         error::error readAll(std::unordered_map<std::string, std::string*>&);
         error::error writeAll(std::unordered_map<std::string, std::string*>&);

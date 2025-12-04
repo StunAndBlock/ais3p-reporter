@@ -30,16 +30,22 @@ error::error UI::init(){
     }
     screen_ = DefaultScreen(display_);
     
-    MainWin* mw = new MainWin();
-    mw->init(display_,screen_);
-    err = mw->create("Main");
+    MainWin* mWdn = new MainWin(display_, screen_);
+    err = mWdn->create("Main");
     if (err){
         return err;
     }
-    chain_[mw->getWindow()] = mw;
-    
-
-    mw->show();
+    chain_[mWdn->getWindow()] = mWdn;
+    mWdn->show();
+    if(isFirstStart_){
+        FirstStartWin* firstStartWnd = new FirstStartWin(display_, screen_);
+        err = firstStartWnd->create("First start", mWdn->getWindow());
+            if (err){
+                return err;
+            }
+        chain_[firstStartWnd->getWindow()] = firstStartWnd;
+        firstStartWnd->show();
+    }
     return err;
 }
 
@@ -47,16 +53,12 @@ error::error UI::init(){
 error::error UI::dispatch(){
     XEvent event;
     bool running = true;
+    int code = 0;
     while (running) {
         XNextEvent(display_, &event);
-        switch (event.type)
-        {
-        case FocusIn:
-            chain_[event.xfocus.window]->callback(event);
-            break;
-        
-        default:
-            break;
+        code = chain_[event.xfocus.window]->callback(event);
+        if (code == 1){
+            return error::null;
         }
     }
     return error::null;

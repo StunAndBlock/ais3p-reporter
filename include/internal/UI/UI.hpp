@@ -3,6 +3,7 @@
 #include "internal/UI/Common.hpp"
 #include <unordered_map>
 #include "internal/UI/MainWin.hpp"
+#include "internal/UI/FirstStartWin.hpp"
 class UI {
     public:
         UI();

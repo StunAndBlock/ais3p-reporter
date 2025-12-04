@@ -8,43 +8,28 @@ BaseWin::~BaseWin(){
         XFreeGC(dpy_, gc_);
     }
 }
-
-void BaseWin::init(Display* dpy, int scr){
+BaseWin::BaseWin(Display* dpy, int scr){
     dpy_ = dpy;
     scr_ = scr;
 }
 
-void BaseWin::callback(XEvent& event){
-    std::cout << "yay";
-        switch (event.type) {
-            case ClientMessage:
-                // Window close request
-                Atom wm_delete_window = XInternAtom(dpy_, "WM_DELETE_WINDOW", False);
-                if (event.xclient.data.l[0] == wm_delete_window) {
-                    
-                }
-                break;
-        }
 
-}
 
-error::error BaseWin::create(const char* name){
+error::error BaseWin::create(const char* name = "GenericWindow",Window parent = 0){
     
         XSetWindowAttributes winAttr;
         winAttr.background_pixel = WhitePixel(dpy_, scr_);
-        winAttr.event_mask = ExposureMask | KeyPressMask | 
-                                ButtonPressMask | StructureNotifyMask;
         // Create window
         wnd_ = XCreateWindow(
             dpy_,
             RootWindow(dpy_, scr_),
             100, 100,          
-            100, 100,      
+            800, 600,      
             2,                  
             CopyFromParent,     
             InputOutput,        
             CopyFromParent,     
-            CWBackPixel | CWEventMask,
+            CWBackPixel,
             &winAttr
         );
         
@@ -52,6 +37,7 @@ error::error BaseWin::create(const char* name){
         if (!wnd_){
             return error::errorf("[UI] Failed to create named window, original error lost, name: %s",name);
         }
+        gc_ = XCreateGC(dpy_, wnd_, 0, nullptr);
         XStoreName(dpy_, wnd_, name);
 
         return error::null;
